@@ -1,0 +1,11 @@
+.custom-dots {
+  @apply absolute bottom-5 left-0 right-0 flex justify-center space-x-2;
+}
+
+.custom-dots li button:before {
+  @apply  text-sm;
+}
+
+.custom-dots li.slick-active button:before {
+  @apply text-green-500;
+}
