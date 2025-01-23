@@ -3,12 +3,12 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FaFire } from "react-icons/fa6";
 import { CiGrid41 } from "react-icons/ci";
-import Headphone from "../../assets/icons/icon-headphone.svg";
-import img1 from "../../assets/category/category-1.svg";
-import img2 from "../../assets/category/category-2.svg";
-import img3 from "../../assets/category/category-3.svg";
-import img4 from "../../assets/category/category-4.svg";
-import img5 from "../../assets/category/category-5.svg";
+import Headphone from "../../../assets/icons/icon-headphone.svg";
+import img2 from "../../../assets/category/category-2.svg";
+import img3 from "../../../assets/category/category-3.svg";
+import img4 from "../../../assets/category/category-4.svg";
+import img5 from "../../../assets/category/category-5.svg";
+import img1 from "../../../assets/category/category-1.svg";
 
 const options = [
   {
