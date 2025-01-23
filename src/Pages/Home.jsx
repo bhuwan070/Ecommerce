@@ -1,10 +1,12 @@
 import React from "react";
-import Header from "../Components/Header/Header";
+import Header from "../Components/Home/Header/Header";
+import FeaturedCat from "../Components/Home/FeatureSection/FeaturedCat";
 
 const Home = () => {
   return(
     <>
     <Header />
+    <FeaturedCat />
     </>
   );
 };

@@ -3,7 +3,7 @@ import { FaSearch } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 import { GrCart } from "react-icons/gr";
 import { FaRegUser } from "react-icons/fa";
-import logo from "../../assets/logo.svg";
+import logo from "../../../assets/logo.svg";
 
 
 const options = ['All Categories', 'Milks and Dairies', 'Fruits and Nuts', 'Vegatables', 'Cereals', 'Meat and Seafood']
