@@ -11,7 +11,7 @@ import PaymentMethod from "../../assets/payment-method.png";
 const FooterNavigatioin = () => {
   return (
     <section className="px-5">
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 my-5 border-2 border-gray-600 px-5">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 my-5 overflow-x-hidden px-5">
         <div className="">
           {/* logo and text  */}
           <div>
@@ -55,7 +55,7 @@ const FooterNavigatioin = () => {
           </div>
         </div>
 
-        <div className="px-10">
+        <div className="px-32 sm:px-10">
           <p className=" font-semibold text-gray-500 pb-2">Company</p>
           <div>
             <ul>
@@ -96,8 +96,8 @@ const FooterNavigatioin = () => {
             </li>
           </ul>
         </div>
-        <div>
-          <div className="py-3">
+        <div className="pr-20">
+          <div className=" py-3">
             <h1 className="text-3xl font-bold text-gray-700">Account</h1>
           </div>
           <div>
@@ -127,7 +127,7 @@ const FooterNavigatioin = () => {
           </div>
         </div>
 
-        <div>
+        <div className="pl-20 sm:pl-0">
           <div className="py-3">
             <h1 className="text-3xl font-bold text-gray-700">Corporate</h1>
           </div>
@@ -187,25 +187,33 @@ const FooterNavigatioin = () => {
             </ul>
           </div>
         </div>
-        <div>
+        <div className="mt-10 sm:mt-0 pl-10 sm:pl-0">
           <div>
             <h1 className="text-3xl font-semibold text-gray-500 pb-3">
               Install App
             </h1>
-            <p className="text-base font-semibold text-gray-500 pb-5">
+            <p className="text-sm font-semibold text-gray-500 pb-5">
               From App Store or Google Play
             </p>
-            <div className="flex">
-              <div>
-                <img src={AppStore} alt="" />
+            <div className=" flex flex-col sm:flex-row">
+              <div className="py-2">
+                <img
+                  src={AppStore}
+                  alt=""
+                  className="h-[50px] hover:scale-105 transition-all duration-500 ease-in-out"
+                />
               </div>
-              <div>
-                <img src={GooglePlay} alt="" />
+              <div className="py-2">
+                <img
+                  src={GooglePlay}
+                  alt=""
+                  className="h-[50px] hover:scale-105 transition-all duration-500 ease-in-out"
+                />
               </div>
             </div>
           </div>
           <div className="pb-10">
-            <p className="text-base font-semibold text-gray-500">
+            <p className="text-base font-semibold text-gray-500 py-2">
               {" "}
               Secore Payment Gateways
             </p>
