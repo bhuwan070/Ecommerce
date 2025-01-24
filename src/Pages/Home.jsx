@@ -2,13 +2,14 @@ import React from "react";
 import Header from "../Components/Home/Header/Header";
 import FeaturedCat from "../Components/Home/FeatureSection/FeaturedCat";
 import Footer from "../Components/Footer/Footer";
-
+import DailybestSeller from "../Components/DailyBestSell/DailybestSeller";
 
 const Home = () => {
   return (
     <>
-    <Header />
-    <FeaturedCat />
+      <Header />
+      <FeaturedCat />
+      <DailybestSeller />
       <Footer />
     </>
   );
