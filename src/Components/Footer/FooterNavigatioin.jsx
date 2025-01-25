@@ -11,7 +11,7 @@ import PaymentMethod from "../../assets/payment-method.png";
 const FooterNavigatioin = () => {
   return (
     <section className="px-5">
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 my-5 overflow-x-hidden px-5">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 space-x-4 space-y-4 my-5 overflow-x-hidden px-5">
         <div className="">
           {/* logo and text  */}
           <div>
@@ -21,33 +21,34 @@ const FooterNavigatioin = () => {
             </p>
           </div>
           <div>
-            <div className="flex">
-              <GrLocation className="text-xl text-primary mr-4 " />
-              <p className="text-center pb-3">
-                {" "}
-                <span className="font-bold text-lg">Address:</span> 5171 W
-                Campbell Ave
+            <div className="flex gap-4 items-center">
+              <div>
+                <GrLocation className="text-xl text-primary" />
+              </div>
+              <p className="">
+                <span className="font-bold text-lg">Address:</span>{" "}
+                <span className="">5171 W Campbell Ave</span>
               </p>
             </div>
 
             <p className="text-base">undefined Kent, Utah 53127 US</p>
           </div>
-          <div className="flex py-3">
-            <GrPhone className="text-xl text-primary mr-4" />
+          <div className="flex gap-4 py-3">
+            <GrPhone className="text-xl text-primary" />
             <p>
               {" "}
               <span className="font-bold text-lg">Call Us:</span>(+91) -
               540-025-124553
             </p>
           </div>
-          <div className="flex">
-            <GrMailOption className="text-xl text-primary mr-4" />
+          <div className="flex gap-4">
+            <GrMailOption className="text-xl text-primary" />
             <p>
               <span className="font-bold text-lg">Email:</span>sale@Nest.com
             </p>
           </div>
-          <div className="flex py-4">
-            <FaRegClock className="text-xl text-primary mr-4" />
+          <div className="flex gap-4 py-4">
+            <FaRegClock className="text-xl text-primary " />
             <p>
               <span className="font-bold text-lg">Hours:</span>
               10:00 - 18:00, Mon - Sat
@@ -55,9 +56,9 @@ const FooterNavigatioin = () => {
           </div>
         </div>
 
-        <div className="px-32 sm:px-10">
-          <p className=" font-semibold text-gray-500 pb-2">Company</p>
-          <div>
+        <div className="">
+          <p className="text-3xl font-bold text-gray-700 py-3">Company</p>
+          <div className="mt-2">
             <ul>
               <li className="text-base font-semibold hover:text-primary text-gray-700 hover:scale-105 transition-all duration-500 ease-in-out ">
                 <a href="">About Us</a>
@@ -96,7 +97,7 @@ const FooterNavigatioin = () => {
             </li>
           </ul>
         </div>
-        <div className="pr-20">
+        <div className="">
           <div className=" py-3">
             <h1 className="text-3xl font-bold text-gray-700">Account</h1>
           </div>
@@ -127,7 +128,7 @@ const FooterNavigatioin = () => {
           </div>
         </div>
 
-        <div className="pl-20 sm:pl-0">
+        <div className="">
           <div className="py-3">
             <h1 className="text-3xl font-bold text-gray-700">Corporate</h1>
           </div>

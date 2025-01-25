@@ -40,18 +40,18 @@ const FeatureData = [
 
 const FooterFeature = () => {
   return (
-    <section>
-      <div className="container mx-auto py-10 px-4">
+    <section className="px-5">
+      <div className="mx-auto py-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
           {FeatureData.map((item) => (
             <div
               key={item.id}
-              className="flex  items-center text-center bg-gray-100 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200"
+              className="flex items-center group text-center bg-gray-100 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200"
             >
               <img
                 src={item.icon}
                 alt={item.title}
-                className="w-16 h-16 mb-2 px-2 transform transition-transform duration-300 hover:scale-110"
+                className="w-16 h-16 mb-2 px-2 transform transition-transform duration-300 group-hover:scale-110"
               />
               <div>
                 <h1 className="text-lg font-semibold text-gray-700 mb-1">

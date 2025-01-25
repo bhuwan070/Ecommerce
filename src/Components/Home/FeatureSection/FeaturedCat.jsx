@@ -146,7 +146,7 @@ const FeaturedCat = () => {
   return (
     <section className="px-3 py-4">
       <div className="flex justify-between items-center mb-10 px-3">
-        <h1 className="text-gray-700 text-3xl font-bold">Featured Categories</h1>
+        <h1 className="text-gray-700 text-[33px] font-bold">Featured Categories</h1>
         <div className="flex gap-4">
           {/* Custom Prev and Next Buttons */}
           <div
