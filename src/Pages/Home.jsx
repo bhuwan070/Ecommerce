@@ -5,7 +5,7 @@ import Footer from "../Components/Footer/Footer";
 import DailybestSeller from "../Components/DailyBestSell/DailybestSeller";
 import Rating from "../Components/Home/PopularProduct/rating";
 import PopularSection from "../Components/Home/PopularProduct/PopularSection";
-
+import Deals from "../Components/Home/Deals/Deals";
 
 
 const Home = () => {
@@ -13,6 +13,8 @@ const Home = () => {
     <>
       <Header />
       <FeaturedCat />
+      <PopularSection />
+      <Deals />
       <DailybestSeller />
       <Footer />
     </>

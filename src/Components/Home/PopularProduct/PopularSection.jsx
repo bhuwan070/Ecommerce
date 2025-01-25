@@ -1,36 +1,37 @@
-import React, { useState } from 'react'
-import { GrCart } from "react-icons/gr";
-import Rating from '../PopularProduct/Rating'
-import product1_1 from "../../../assets/products/product-1-1.jpg"
-import product1_2 from "../../../assets/products/product-1-2.jpg"
-import product2_1 from "../../../assets/products/product-2-1.jpg"
-import product2_2    from "../../../assets/products/product-2-2.jpg"
-import product3_1 from "../../../assets/products/product-3-1.jpg"
-import product3_2 from "../../../assets/products/product-3-2.jpg"
-import product4_1 from "../../../assets/products/product-4-1.jpg"
-import product4_2 from "../../../assets/products/product-4-2.jpg"
-import product5_1 from "../../../assets/products/product-5-1.jpg"
-import product5_2 from "../../../assets/products/product-5-2.jpg"
-import product6_1 from "../../../assets/products/product-6-1.jpg"
-import product6_2 from "../../../assets/products/product-6-2.jpg"
-import product7_1 from "../../../assets/products/product-7-1.jpg"
-import product7_2 from "../../../assets/products/product-7-2.jpg"
-import product8_1 from "../../../assets/products/product-8-1.jpg"
-import product8_2 from "../../../assets/products/product-8-2.jpg"
-import product9_1 from "../../../assets/products/product-9-1.jpg"
-import product9_2 from "../../../assets/products/product-9-2.jpg"
-import product10_1 from "../../../assets/products/product-10-1.jpg"
-import product10_2 from "../../../assets/products/product-10-2.jpg"
-import product11_1 from "../../../assets/products/product-11-1.jpg"
-import product11_2 from "../../../assets/products/product-11-2.jpg"
-import product12_1 from "../../../assets/products/product-12-1.jpg"
-import product12_2 from "../../../assets/products/product-12-2.jpg"
-import product13_1 from "../../../assets/products/product-13-1.jpg"
-import product13_2 from "../../../assets/products/product-13-2.jpg"
-import product14_1 from "../../../assets/products/product-14-1.jpg"
-import product14_2 from "../../../assets/products/product-14-2.jpg"
-import product15_1 from "../../../assets/products/product-15-1.jpg"
-import product15_2 from "../../../assets/products/product-15-2.jpg"
+import React, { useState } from "react";
+import Rating from "../PopularProduct/Rating";
+import product1_1 from "../../../assets/products/product-1-1.jpg";
+import product1_2 from "../../../assets/products/product-1-2.jpg";
+import product2_1 from "../../../assets/products/product-2-1.jpg";
+import product2_2 from "../../../assets/products/product-2-2.jpg";
+import product3_1 from "../../../assets/products/product-3-1.jpg";
+import product3_2 from "../../../assets/products/product-3-2.jpg";
+import product4_1 from "../../../assets/products/product-4-1.jpg";
+import product4_2 from "../../../assets/products/product-4-2.jpg";
+import product5_1 from "../../../assets/products/product-5-1.jpg";
+import product5_2 from "../../../assets/products/product-5-2.jpg";
+import product6_1 from "../../../assets/products/product-6-1.jpg";
+import product6_2 from "../../../assets/products/product-6-2.jpg";
+import product7_1 from "../../../assets/products/product-7-1.jpg";
+import product7_2 from "../../../assets/products/product-7-2.jpg";
+import product8_1 from "../../../assets/products/product-8-1.jpg";
+import product8_2 from "../../../assets/products/product-8-2.jpg";
+import product9_1 from "../../../assets/products/product-9-1.jpg";
+import product9_2 from "../../../assets/products/product-9-2.jpg";
+import product10_1 from "../../../assets/products/product-10-1.jpg";
+import product10_2 from "../../../assets/products/product-10-2.jpg";
+import product11_1 from "../../../assets/products/product-11-1.jpg";
+import product11_2 from "../../../assets/products/product-11-2.jpg";
+import product12_1 from "../../../assets/products/product-12-1.jpg";
+import product12_2 from "../../../assets/products/product-12-2.jpg";
+import product13_1 from "../../../assets/products/product-13-1.jpg";
+import product13_2 from "../../../assets/products/product-13-2.jpg";
+import product14_1 from "../../../assets/products/product-14-1.jpg";
+import product14_2 from "../../../assets/products/product-14-2.jpg";
+import product15_1 from "../../../assets/products/product-15-1.jpg";
+import product15_2 from "../../../assets/products/product-15-2.jpg";
+import { FcRating } from "react-icons/fc";
+import AddtoCartButton from "./AddtoCartButton";
 
 const Cards = [
   {
@@ -194,7 +195,7 @@ const Cards = [
     producer: "NestFood",
     disPrice: "$28.85",
     fullPrice: "$32.0",
-    category: "Vegetables"
+    category: "Vegetables",
   },
   {
     top: "Hot",
@@ -211,28 +212,17 @@ const Cards = [
 ];
 
 const PopularSection = () => {
+  const [activeCategory, SetActiveCategory] = useState("All");
 
-    const [activeCategory, SetActiveCategory] = useState("All");
-
-    const filterCards = 
-        activeCategory === "All"
-        ? Cards
-        : Cards.filter((card) => card.category === activeCategory);
-
-        const breakpointColumns = {
-          default: 5,
-          1300: 4,
-          1100: 3,
-          768: 2,
-          500: 1,
-        };
-
-
+  const filterCards =
+    activeCategory === "All"
+      ? Cards
+      : Cards.filter((card) => card.category === activeCategory);
 
   return (
     <section className="px-2 py-7 my-7">
       <div className="flex flex-col gap-6 truncate lg:gap-0 lg:flex-row lg:justify-between lg:items-center px-3">
-        <h1 className="text-gray-700 text-3xl font-bold">Popular Products</h1>
+        <h1 className="text-gray-700 text-[33px] font-bold">Popular Products</h1>
         <div>
           <ul className="flex flex-wrap gap-6">
             {[
@@ -289,17 +279,19 @@ const PopularSection = () => {
                 {item.producer}
               </span>
             </h1>
-            <div className="flex justify-between items-center mt-4 truncate">
-              <h1 className="text-primary text-lg font-bold">
+            <div className="flex justify-between items-center mt-4">
+              <h1 className="text-primary text-lg font-bold truncate">
                 {item.disPrice}{" "}
                 <span className="text-gray-400 text-sm line-through font-semibold mx-4">
                   {item.fullPrice}
                 </span>
               </h1>
-              <button className="flex items-center gap-2 bg-[#3BB77E] text-primary font-semibold bg-opacity-15 hover:bg-opacity-100 hover:text-white hover:-translate-y-1 rounded-[4px] px-4 py-[6px] ease duration-300">
-                <GrCart />
-                Add
-              </button>
+
+              <AddtoCartButton
+                buttonClass="flex items-center gap-2 bg-[#3BB77E] z-10 text-primary font-semibold bg-opacity-15 hover:bg-opacity-100 hover:text-white hover:-translate-y-1 rounded-[4px] px-4 py-[6px] ease duration-300"
+                text="Add"
+              />
+              
             </div>
             {item.top && (
               <div
@@ -318,6 +310,6 @@ const PopularSection = () => {
       </div>
     </section>
   );
-}
+};
 
-export default PopularSection
+export default PopularSection;
