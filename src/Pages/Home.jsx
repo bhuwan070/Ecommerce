@@ -8,9 +8,11 @@ import PopularSection from "../Components/Home/PopularProduct/PopularSection";
 import Deals from "../Components/Home/Deals/Deals";
 import TopSection from "../Components/Home/TopSection/TopSection";
 import PopUp from "../Components/Home/PopUp";
+import LoadingComp from "../Components/LoadingComp";
 
 const Home = () => {
   const [showPopup, setShowPopup] = useState(false);
+  const [loading, setLoading] = useState(true);
   const popupRef = useRef(null);
 
   useEffect(() => {
@@ -33,27 +35,40 @@ const Home = () => {
     };
   }, []);
 
+  
+    useEffect(() => {
+      // Simulate a loading time or wait for an API call
+      const timer = setTimeout(() => setLoading(false), 1000); // 3 seconds
+      return () => clearTimeout(timer);
+    }, []);
+  
+
   return (
     <>
-      <div className="relative">
-
-        <div className={`${showPopup ? "blur-sm" : ""}`}>
-          <Header />
-          <FeaturedCat />
-          <PopularSection />
-          <Deals />
-          <DailybestSeller />
-          <TopSection />
-          <Footer />
-        </div>
-
-        {showPopup && (
-          <div className="fixed z-[1000] top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]"
-          ref={popupRef}>
-            <PopUp onClick={() => setShowPopup(false)} />
+      {loading ? (
+        <LoadingComp />
+      ) : (
+        <div className="relative">
+          <div className={`${showPopup ? "blur-sm" : ""}`}>
+            <Header />
+            <FeaturedCat />
+            <PopularSection />
+            <Deals />
+            <DailybestSeller />
+            <TopSection />
+            <Footer />
           </div>
-        )}
-      </div>
+
+          {showPopup && (
+            <div
+              className="fixed z-[1000] top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]"
+              ref={popupRef}
+            >
+              <PopUp onClick={() => setShowPopup(false)} />
+            </div>
+          )}
+        </div>
+      )}
     </>
   );
 };

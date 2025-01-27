@@ -8,12 +8,12 @@ import { MdClose } from "react-icons/md";
 
 const PopUp = ({onClick}) => {
   return (
-    <section className="bg-white border border-opacity-30 border-primary w-[75vw] lg:w-[57vw] px-14 py-10 rounded-3xl">
+    <section className="bg-white border-2 border-opacity-40 border-primary w-[75vw] lg:w-[57vw] px-14 py-10 rounded-3xl">
       <div
         className=" relative bg-contain bg-bottom sm:bg-right bg-no-repeat flex flex-col gap-2"
         style={{ backgroundImage: `url(${popup})` }}
       >
-        <MdClose size={25} color="gray" className="absolute top-[-8px] right-[-8px] cursor-pointer" onClick={onClick}/>
+        <MdClose size={25} color="gray" className="absolute top-[-8px] right-[-20px] cursor-pointer" onClick={onClick}/>
 
         <h2 className="text-orange-400 text-lg font-semibold">
           Deal of the Day
