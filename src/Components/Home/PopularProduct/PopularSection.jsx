@@ -222,7 +222,9 @@ const PopularSection = () => {
   return (
     <section className="px-2 py-7 my-7">
       <div className="flex flex-col gap-6 truncate lg:gap-0 lg:flex-row lg:justify-between lg:items-center px-3">
-        <h1 className="text-gray-700 text-[33px] font-bold">Popular Products</h1>
+        <h1 className="text-gray-700 text-[33px] font-bold">
+          Popular Products
+        </h1>
         <div>
           <ul className="flex flex-wrap gap-6">
             {[
@@ -291,7 +293,6 @@ const PopularSection = () => {
                 buttonClass="flex items-center gap-2 bg-[#3BB77E] z-10 text-primary font-semibold bg-opacity-15 hover:bg-opacity-100 hover:text-white hover:-translate-y-1 rounded-[4px] px-4 py-[6px] ease duration-300"
                 text="Add"
               />
-              
             </div>
             {item.top && (
               <div
