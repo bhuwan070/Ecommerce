@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { GrCart } from "react-icons/gr";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import Product1 from "../../assets/products/product-1-1.jpg";
-import Product12 from "../../assets/products/product-1-1.jpg";
+import Product12 from "../../assets/products/product-1-2.jpg";
 import Product2 from "../../assets/products/product-2-1.jpg";
 import Product22 from "../../assets/products/product-2-2.jpg";
 import Product3 from "../../assets/products/product-3-1.jpg";
@@ -20,6 +20,7 @@ import Product8 from "../../assets/products/product-8-1.jpg";
 import Product82 from "../../assets/products/product-8-2.jpg";
 import Rating from "../Home/PopularProduct/Rating";
 import { FaLongArrowAltRight } from "react-icons/fa";
+import { useState } from "react";
 
 const CardDetails = [
   {
@@ -114,6 +115,7 @@ const CardDetails = [
 ];
 
 const DailyCardSlider = () => {
+  const [hoveredCardId, setHoveredCardId] = useState(null);
   const settings = {
     dots: false,
     infinite: true,
@@ -129,13 +131,13 @@ const DailyCardSlider = () => {
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 3,
         },
       },
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 2,
         },
       },
     ],
@@ -147,20 +149,26 @@ const DailyCardSlider = () => {
           {CardDetails.map((card) => (
             <div
               key={card.id}
-              className="border-2 border-gray-500 h-full p-4 bg-white shadow-lg rounded-lg flex flex-col items-center justify-center text-center"
+              className=" h-full p-4 bg-white shadow-2xl rounded-lg flex flex-col items-center justify-center text-center"
+              onMouseEnter={() => setHoveredCardId(card.id)}
+              onMouseLeave={() => setHoveredCardId(null)}
             >
               <img
-                src={card.image1}
+                src={hoveredCardId === card.id ? card.image2 : card.image1}
                 alt={card.companyName}
-                className="w-full h-60 object-cover rounded-md"
+                className={`w-full h-60 object-cover rounded-lg transition-transform duration-300 ${
+                  hoveredCardId === card.id ? "scale-125" : "scale-100"
+                }`}
               />
-              <p className="text-gray-500 text-sm mt-2 text-center sm:text-left pl-5 ">
+              <p className="text-gray-500 text-sm mt-2 text-center sm:text-left pl-4 ">
                 {card.companyName}
               </p>
-              <h3 className="mt-4 mb-2 font-bold text-lg">
+              <h3 className="mb-1 text-left pl-2 text-xl text-gray-700 font-extrabold">
                 {card.product_description}
               </h3>
-              <Rating rating={card.star} />
+              <div className="px-2">
+                <Rating rating={card.star} />
+              </div>
               <div className="flex px-2">
                 <p className="text-primary text-xl font-semibold mt-2">
                   {card.discountedPrice}
