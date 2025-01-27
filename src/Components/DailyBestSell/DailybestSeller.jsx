@@ -1,30 +1,33 @@
 import DailyCardSlider from "./DailyCardSlider";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import Banner1 from "../../assets/Banner/banner-4.png";
+import { useState } from "react";
 const DailybestSeller = () => {
+  const [selectedCategory, setSelectedCategory] = useState("Featured");
   return (
-    <section className="pb-5 border-2 border-gray-500 min-h-[90vh] w-full overflow-hidden">
-      <div className="flex justify-between px-2 mb-6 sm:mb-8">
-        <h1 className=" text-2xl sm:text-3xl font-semibold text-gray-500 py-3 sm:py-4">
+    <section className="pb-5  min-h-[90vh] w-full overflow-hidden">
+      <div className="flex justify-between px-2 sm:px-8 mb-6 sm:mb-8">
+        <h1 className=" text-2xl sm:text-4xl font-semibold text-gray-500 py-3 sm:py-4">
           Daily Best Sells
         </h1>
         <div>
           <ul className="flex justify-around pt-4 px-2 sm:pt-6">
-            <li className="px-2">
-              <button className="text-base sm:text-lg font-semibold text-gray-500 hover:text-primary hover:scale-105 transition-all duration-500 ease-in-out">
-                Featured
-              </button>
-            </li>
-            <li className="px-2">
-              <button className="text-base sm:text-lg font-semibold text-gray-500 hover:text-primary hover:scale-105 transition-all duration-500 ease-in-out">
-                Popular
-              </button>
-            </li>
-            <li className="px-2">
-              <button className="text-base sm:text-lg font-semibold text-gray-500 hover:text-primary hover:scale-105 transition-all duration-500 ease-in-out">
-                New Added
-              </button>
-            </li>
+            {["Featured", "Popular", "New Added"].map((category) => (
+              <li key={category} className="px-2">
+                <button
+                  onClick={() => setSelectedCategory(category)}
+                  className={`text-base sm:text-lg font-semibold 
+                    ${
+                      selectedCategory === category
+                        ? "text-primary scale-105"
+                        : "text-gray-500"
+                    }
+                     hover:text-primary hover:scale-105 transition-all duration-500 ease-in-out`}
+                >
+                  {category}
+                </button>
+              </li>
+            ))}
           </ul>
         </div>
       </div>
@@ -53,7 +56,7 @@ const DailybestSeller = () => {
         </div>
         {/* slider  */}
         <div className="w-full h-full">
-          <DailyCardSlider />
+          <DailyCardSlider selectedCategory={selectedCategory} />
         </div>
       </div>
     </section>
