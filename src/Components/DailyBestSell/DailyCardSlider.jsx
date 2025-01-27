@@ -19,12 +19,12 @@ import Product72 from "../../assets/products/product-7-2.jpg";
 import Product8 from "../../assets/products/product-8-1.jpg";
 import Product82 from "../../assets/products/product-8-2.jpg";
 import Rating from "../Home/PopularProduct/Rating";
-import { FaLongArrowAltRight } from "react-icons/fa";
 import { useState } from "react";
 
 const CardDetails = [
   {
     id: 1,
+    top: "Hot",
     image1: Product1,
     image2: Product12,
     companyName: "abcd",
@@ -33,9 +33,11 @@ const CardDetails = [
     star: "4.0",
     Price: "$123",
     discountedPrice: "$134",
+    category: "Popular",
   },
   {
     id: 2,
+    top: "Hot",
     image1: Product2,
     image2: Product22,
     companyName: "abcd",
@@ -44,9 +46,11 @@ const CardDetails = [
     star: "4.0",
     Price: "$123",
     discountedPrice: "$134",
+    category: "Popular",
   },
   {
     id: 3,
+    top: "Sale",
     image1: Product3,
     image2: Product32,
     companyName: "abcd",
@@ -55,8 +59,10 @@ const CardDetails = [
     star: "4.0",
     Price: "$123",
     discountedPrice: "$134",
+    category: "Popular",
   },
   {
+    top: "Sale",
     id: 4,
     image1: Product4,
     image2: Product42,
@@ -66,8 +72,10 @@ const CardDetails = [
     star: "4.0",
     Price: "$123",
     discountedPrice: "$134",
+    category: "Featured",
   },
   {
+    top: "Sale",
     id: 5,
     image1: Product5,
     image2: Product52,
@@ -76,6 +84,7 @@ const CardDetails = [
     sold_quantity: "123/90",
     star: "4.0",
     Price: "$123",
+    category: "Featured",
     discountedPrice: "$134",
   },
   {
@@ -88,6 +97,7 @@ const CardDetails = [
     star: "4.0",
     Price: "$123",
     discountedPrice: "$134",
+    category: "Featured",
   },
 
   {
@@ -100,6 +110,7 @@ const CardDetails = [
     star: "4.0",
     Price: "$123",
     discountedPrice: "$134",
+    category: "New Added",
   },
   {
     id: 8,
@@ -110,11 +121,16 @@ const CardDetails = [
     sold_quantity: "123/90",
     star: "4.0",
     Price: "$123",
+    category: "New Added",
     discountedPrice: "$134",
   },
 ];
 
-const DailyCardSlider = () => {
+const DailyCardSlider = ({ selectedCategory }) => {
+  const filteredCards =
+    selectedCategory === "All"
+      ? CardDetails
+      : CardDetails.filter((card) => card.category === selectedCategory);
   const [hoveredCardId, setHoveredCardId] = useState(null);
   const settings = {
     dots: false,
@@ -146,10 +162,10 @@ const DailyCardSlider = () => {
     <div>
       <div>
         <Slider {...settings}>
-          {CardDetails.map((card) => (
+          {filteredCards.map((card) => (
             <div
               key={card.id}
-              className=" h-full p-4 bg-white shadow-2xl rounded-lg flex flex-col items-center justify-center text-center"
+              className=" relative h-full p-4 bg-white shadow-2xl rounded-lg flex flex-col items-center justify-center text-center"
               onMouseEnter={() => setHoveredCardId(card.id)}
               onMouseLeave={() => setHoveredCardId(null)}
             >
@@ -189,6 +205,18 @@ const DailyCardSlider = () => {
                   <span className="px-2 pl-3">Add to Cart</span>
                 </a>
               </div>
+              {card.top && (
+                <div
+                  className={`${
+                    card.top === "Hot" ? "bg-pink-500" : "bg-primary"
+                  } ${card.top === "Sale" ? "bg-sky-500" : "bg-primary"}
+                ${
+                  card.top === "-14%" ? "bg-orange-500" : "bg-primary"
+                } absolute text-white text-semibold text-[13px] top-0 left-0 rounded-tl-2xl rounded-br-2xl px-[18px] py-[5px]`}
+                >
+                  {card.top}
+                </div>
+              )}
             </div>
           ))}
         </Slider>
@@ -227,6 +255,9 @@ NextArrow.propTypes = {
 
 PrevArrow.propTypes = {
   onClick: PropTypes.func,
+};
+DailyCardSlider.propTypes = {
+  selectedCategory: PropTypes.string.isRequired, // Define selectedCategory as required
 };
 
 export default DailyCardSlider;
