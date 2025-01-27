@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 
-const TimeCounter = ({ initialTime }) => {
+const TimeCounter = ({ initialTime, timeClass, counterStyles }) => {
   const [timeLeft, setTimeLeft] = useState(initialTime); // Time in seconds
 
   useEffect(() => {
@@ -31,20 +31,28 @@ const TimeCounter = ({ initialTime }) => {
   const { days, hours, minutes, seconds } = calculateTime(timeLeft);
 
   return (
-    <div className="flex gap-3 justify-center items-center">
-      <div className="flex rounded-md min-w-[65px] h-[70px] flex-col items-center justify-center bg-white">
+    <div className={`${counterStyles} flex gap-3 items-center`}>
+      <div
+        className={`${timeClass} flex rounded-md min-w-[65px] h-[70px] flex-col items-center justify-center bg-white`}
+      >
         <div className="text-primary text-xl font-semibold">{days}</div>
         <p className="text-gray-400 text-base font-semibold">Days</p>
       </div>
-      <div className="flex rounded-md min-w-[65px] h-[70px] flex-col items-center justify-center bg-white">
+      <div
+        className={`${timeClass} flex rounded-md min-w-[65px] h-[70px] flex-col items-center justify-center bg-white`}
+      >
         <div className="text-primary text-xl font-semibold">{hours}</div>
         <p className="text-gray-400 text-base font-semibold">Hours</p>
       </div>
-      <div className="flex rounded-md min-w-[65px] h-[70px] flex-col items-center justify-center bg-white">
+      <div
+        className={`${timeClass} flex rounded-md min-w-[65px] h-[70px] flex-col items-center justify-center bg-white`}
+      >
         <div className="text-primary text-xl font-semibold">{minutes}</div>
         <p className="text-gray-400 text-base font-semibold">Mins</p>
       </div>
-      <div className="flex rounded-md min-w-[65px] h-[70px] flex-col items-center justify-center bg-white">
+      <div
+        className={`${timeClass} flex rounded-md min-w-[65px] h-[70px] flex-col items-center justify-center bg-white`}
+      >
         <div className="text-primary text-xl font-semibold">{seconds}</div>
         <p className="text-gray-400 text-base font-semibold">Sec</p>
       </div>

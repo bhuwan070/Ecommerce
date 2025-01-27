@@ -10,7 +10,9 @@ import Bgimg4 from "../../../assets/Banner/banner-8.png";
 const Cards = [
   {
     img: Bgimg1,
-    timecounter: <TimeCounter initialTime={23173000} />,
+    timecounter: (
+      <TimeCounter initialTime={23173000} counterStyles="justify-center" />
+    ),
     title: "Seeds of Change Organic Quinoa, Brown, & Red Rice",
     rating: "4.5",
     produucer: "NestFood",
@@ -20,7 +22,9 @@ const Cards = [
   },
   {
     img: Bgimg2,
-    timecounter: <TimeCounter initialTime={12345467} />,
+    timecounter: (
+      <TimeCounter initialTime={12345467} counterStyles="justify-center" />
+    ),
     title: "Perdue Simply Smart Organics Gluten Free",
     rating: "4.0",
     produucer: "Old El Paso",
@@ -30,7 +34,9 @@ const Cards = [
   },
   {
     img: Bgimg3,
-    timecounter: <TimeCounter initialTime={1500600} />,
+    timecounter: (
+      <TimeCounter initialTime={1500600} counterStyles="justify-center" />
+    ),
     title: "Signature Wood-Fired Mushroom and Caramelized",
     rating: "3.5",
     produucer: "Progresso",
@@ -40,7 +46,9 @@ const Cards = [
   },
   {
     img: Bgimg4,
-    timecounter: <TimeCounter initialTime={9340000} />,
+    timecounter: (
+      <TimeCounter initialTime={9340000} counterStyles="justify-center" />
+    ),
     title: "Simply Lemonade with Raspberry Juice",
     rating: "4.0",
     produucer: "Yoplait",
