@@ -6,7 +6,7 @@ const StaticRating = ({ rating, totalStars = 5 }) => {
   const emptyStars = totalStars - fullStars - (hasHalfStar ? 1 : 0); // Remaining empty stars
 
   return (
-    <div className="flex items-center space-x-[2px]">
+    <div className="flex items-center space-x-[1px] ">
       {/* Full Stars */}
       {[...Array(fullStars)].map((_, index) => (
         <svg

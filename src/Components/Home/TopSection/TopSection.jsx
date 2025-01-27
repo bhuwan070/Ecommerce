@@ -130,8 +130,6 @@ const TopSection = () => {
     items: group,
   }));
 
-  console.log(groups);
-
   return (
     <section className="px-3 py-4">
       <div className="grid grid-cols-1 md:grid-cols-2 hx:grid-cols-4 gap-8 hx:gap-4 px-1">

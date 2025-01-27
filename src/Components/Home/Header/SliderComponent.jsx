@@ -67,7 +67,7 @@ const SliderComponent = () => {
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
     dotsClass: "slick-dots custom-dots",
-    // autoplay: true,
+    autoplay: true,
     autoplaySpeed: 4000,
   };
 
@@ -76,7 +76,7 @@ const SliderComponent = () => {
       <div className="slider-container group max-w-[100%]">
         <Slider {...settings}>
           <div
-            className=""
+            className="border-0 overflow-hidden"
           >
             <img
               className="rounded-3xl h-[350px] lg:h-[400px] xl:h-[500px] object-cover"
