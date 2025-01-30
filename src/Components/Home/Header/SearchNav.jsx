@@ -1,17 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 import { GrCart } from "react-icons/gr";
 import { FaRegUser } from "react-icons/fa";
 import logo from "../../../assets/logo.svg";
 
-
-const options = ['All Categories', 'Milks and Dairies', 'Fruits and Nuts', 'Vegatables', 'Cereals', 'Meat and Seafood']
+const options = [
+  "All Categories",
+  "Milks and Dairies",
+  "Fruits and Nuts",
+  "Vegatables",
+  "Cereals",
+  "Meat and Seafood",
+];
 
 const SearchNav = () => {
-
   const [isOpen, setIsOpen] = useState(false); // Track dropdown open state
-  const [selectedOption, SetSelectedOption] = useState("All Categories")
+  const [selectedOption, SetSelectedOption] = useState("All Categories");
+  const dropdownRef = useRef(null);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen); // Toggle dropdown visibility
@@ -20,7 +26,21 @@ const SearchNav = () => {
   const onOptionClicked = (value) => {
     SetSelectedOption(value);
     setIsOpen(false);
-  }
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <>
@@ -62,12 +82,15 @@ const SearchNav = () => {
                   </button>
                 </div>
                 {isOpen && (
-                  <div className="min-w-[200px] absolute left-0 z-10 mt-4 bg-white shadow-lg">
+                  <div
+                    ref={dropdownRef}
+                    className="min-w-[200px] absolute left-0 z-[1000] mt-4 bg-white shadow-lg"
+                  >
                     {options.map((item, index) => (
                       <div
                         onClick={() => onOptionClicked(item)}
                         key={index}
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
+                        className="block px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-primary hover:bg-opacity-70"
                       >
                         {item}
                       </div>

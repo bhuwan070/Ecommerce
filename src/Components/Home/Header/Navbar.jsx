@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { FaFire } from "react-icons/fa6";
 import { CiGrid41 } from "react-icons/ci";
@@ -36,7 +36,8 @@ const options = [
 const Navbar = ({ activeLink: initialActiveLink }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeLink, setActiveLink] = useState(initialActiveLink || "home");
-
+  const dropdownRef = useRef(null);
+  
   useEffect(() => {
     // Update the state if the `initialActiveLink` changes dynamically
     if (initialActiveLink) {
@@ -54,8 +55,22 @@ const Navbar = ({ activeLink: initialActiveLink }) => {
     setIsOpen(!isOpen); // Toggle dropdown visibility
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
-    <nav className="border-y border-gray-400 border-opacity-30 my-4 py-4 px-4">
+    <nav className="sticky top-0 z-50 bg-white border-y border-gray-400 border-opacity-30 my-4 py-3 px-4">
       <div className="flex justify-between items-center">
         <div
           className="relative flex items-center gap-1 bg-primary px-4 py-3 text-white font-semibold rounded-md hover:bg-[#209961] ease duration-500 cursor-pointer"
@@ -83,7 +98,9 @@ const Navbar = ({ activeLink: initialActiveLink }) => {
           </button>
 
           {isOpen && (
-            <div className="grid gap-5 px-6 py-10 bg-white border border-primary border-opacity-50 rounded-lg grid-cols-2 absolute top-16 left-0 min-w-[480px] z-[1000]">
+            <div 
+            ref={dropdownRef}
+            className="grid gap-5 px-6 py-10 bg-white border border-primary border-opacity-50 rounded-lg grid-cols-2 absolute top-16 left-0 min-w-[480px] z-[1000]">
               {options.map((item, index) => (
                 <div
                   key={index}
@@ -103,7 +120,9 @@ const Navbar = ({ activeLink: initialActiveLink }) => {
             <li className="hover:text-orange-600 ease duration-200">
               <Link to="/deals" onClick={() => handleLinkClick("deals")}>
                 <span
-                  className={`${activeLink === "deals" ? "text-orange-600" : ""} flex items-center gap-1 `}
+                  className={`${
+                    activeLink === "deals" ? "text-orange-600" : ""
+                  } flex items-center gap-1 `}
                 >
                   <FaFire className="" />
                   <span className="">Deals</span>
