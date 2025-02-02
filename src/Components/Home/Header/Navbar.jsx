@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { FaFire } from "react-icons/fa6";
 import { CiGrid41 } from "react-icons/ci";
@@ -9,6 +8,7 @@ import img3 from "../../../assets/category/category-3.svg";
 import img4 from "../../../assets/category/category-4.svg";
 import img5 from "../../../assets/category/category-5.svg";
 import img1 from "../../../assets/category/category-1.svg";
+import DropBtn from "../DropBtn";
 
 const options = [
   {
@@ -33,13 +33,71 @@ const options = [
   },
 ];
 
+const pageList = ["About us", "Contact", "Shop", "Blog", "Login", "Register"];
+
 const Navbar = ({ activeLink: initialActiveLink }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
+  const [isPageOpen, setIsPageOpen] = useState(false);
   const [activeLink, setActiveLink] = useState(initialActiveLink || "home");
-  const dropdownRef = useRef(null);
-  
+
+  const categoryDropdownRef = useRef(null);
+  const pagesDropdownRef = useRef(null);
+
+  const [hoverTimeout, setHoverTimeout] = useState(null);
+
+  const handleMouseEnter = () => {
+    // Clear any pending timeout to close the dropdown
+    if (hoverTimeout) {
+      clearTimeout(hoverTimeout);
+      setHoverTimeout(null);
+    }
+    setIsPageOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    // Set a timeout to close the dropdown after a small delay
+    const timeout = setTimeout(() => {
+      setIsPageOpen(false);
+    }, 200); // Delay in milliseconds
+    setHoverTimeout(timeout);
+  };
+
+  const toggleCategoryDropdown = (event) => {
+    event.stopPropagation();
+    setIsCategoryOpen((prev) => !prev);
+    setIsPageOpen(false);
+  };
+
+  const togglePagesDropdown = (event) => {
+    event.stopPropagation();
+    setIsPageOpen((prev) => !prev);
+    setIsCategoryOpen(false);
+  };
+
   useEffect(() => {
-    // Update the state if the `initialActiveLink` changes dynamically
+    const handleClickOutside = (event) => {
+      if (
+        categoryDropdownRef.current &&
+        !categoryDropdownRef.current.contains(event.target)
+      ) {
+        setIsCategoryOpen(false);
+      }
+      if (
+        pagesDropdownRef.current &&
+        !pagesDropdownRef.current.contains(event.target)
+      ) {
+        setIsPageOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  useEffect(() => {
     if (initialActiveLink) {
       setActiveLink(initialActiveLink);
     }
@@ -51,56 +109,24 @@ const Navbar = ({ activeLink: initialActiveLink }) => {
     }
   };
 
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen); // Toggle dropdown visibility
-  };
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
   return (
     <nav className="sticky top-0 z-50 bg-white border-y border-gray-400 border-opacity-30 my-4 py-3 px-4">
       <div className="flex justify-between items-center">
+        {/* First Dropdown */}
         <div
+          ref={categoryDropdownRef}
           className="relative flex items-center gap-1 bg-primary px-4 py-3 text-white font-semibold rounded-md hover:bg-[#209961] ease duration-500 cursor-pointer"
-          onClick={toggleDropdown}
+          onClick={toggleCategoryDropdown}
         >
           <CiGrid41 size={25} />
           <span className="truncate">Browse All Categories</span>
-          <button className="focus:outline-none" onClick={toggleDropdown}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 20 20"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className={`w-3 h-3 transition-transform ${
-                isOpen ? "rotate-180" : ""
-              }`}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-              />
-            </svg>
-          </button>
-
-          {isOpen && (
-            <div 
-            ref={dropdownRef}
-            className="grid gap-5 px-6 py-10 bg-white border border-primary border-opacity-50 rounded-lg grid-cols-2 absolute top-16 left-0 min-w-[480px] z-[1000]">
+          <DropBtn
+            styles={`w-3 h-3 transition-transform ${
+              isCategoryOpen ? "rotate-180" : ""
+            }`}
+          />
+          {isCategoryOpen && (
+            <div className="grid gap-5 px-6 py-10 bg-white border border-primary border-opacity-50 rounded-lg grid-cols-2 absolute top-16 left-0 min-w-[480px] z-[1000]">
               {options.map((item, index) => (
                 <div
                   key={index}
@@ -115,7 +141,9 @@ const Navbar = ({ activeLink: initialActiveLink }) => {
             </div>
           )}
         </div>
-        <div className="hidden lg:block">
+
+        {/* Navigation Links */}
+        <div className="hidden lg:block relative">
           <ul className="flex gap-5 min-w-[48vw] justify-between truncate font-bold cursor-pointer">
             <li className="hover:text-orange-600 ease duration-200">
               <Link to="/deals" onClick={() => handleLinkClick("deals")}>
@@ -161,7 +189,7 @@ const Navbar = ({ activeLink: initialActiveLink }) => {
                 <span
                   className={`${
                     activeLink === "mega menu" ? "text-primary" : ""
-                  } `}
+                  }`}
                 >
                   Mega Menu
                 </span>
@@ -176,15 +204,38 @@ const Navbar = ({ activeLink: initialActiveLink }) => {
                 </span>
               </Link>
             </li>
-            <li className="hover:text-primary ease duration-200">
-              <Link to="/pages" onClick={() => handleLinkClick("pages")}>
-                <span
-                  className={`${activeLink === "pages" ? "text-primary" : ""} `}
+
+            {/* Second Dropdown */}
+            <li
+              ref={pagesDropdownRef}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+              className="cursor-pointer hover:text-primary ease duration-200"
+            >
+              <div className="flex gap-1 items-center cursor-pointer">
+                <span>Pages</span>
+                <DropBtn
+                  styles={`w-3 h-3 transition-transform ${
+                    isPageOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </div>
+              {isPageOpen && (
+                <div
+                  className="min-w-[200px] px-2 py-3 absolute left-[560px] top-10 z-[1000] mt-4 bg-white rounded-md border-[1px] border-opacity-25 border-black shadow-lg"
                 >
-                  Pages
-                </span>
-              </Link>
+                  {pageList.map((item, index) => (
+                    <div
+                      key={index}
+                      className="block px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-primary hover:bg-opacity-70"
+                    >
+                      {item}
+                    </div>
+                  ))}
+                </div>
+              )}
             </li>
+
             <li className="hover:text-primary ease duration-200">
               <Link to="/contact" onClick={() => handleLinkClick("contact")}>
                 <span
@@ -198,6 +249,8 @@ const Navbar = ({ activeLink: initialActiveLink }) => {
             </li>
           </ul>
         </div>
+
+        {/* Support Section */}
         <div className="flex gap-2 items-center justify-center">
           <img src={Headphone} alt="" />
           <div>
