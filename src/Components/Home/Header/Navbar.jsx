@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import NavItem from "./NavItem";
+import DropdownNavItem from "./PageDropdown";
 import { FaFire } from "react-icons/fa6";
 import { CiGrid41 } from "react-icons/ci";
 import Headphone from "../../../assets/icons/icon-headphone.svg";
@@ -37,30 +38,9 @@ const pageList = ["About us", "Contact", "Shop", "Blog", "Login", "Register"];
 
 const Navbar = ({ activeLink: initialActiveLink }) => {
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
-  const [isPageOpen, setIsPageOpen] = useState(false);
   const [activeLink, setActiveLink] = useState(initialActiveLink || "home");
 
   const categoryDropdownRef = useRef(null);
-  const pagesDropdownRef = useRef(null);
-
-  const [hoverTimeout, setHoverTimeout] = useState(null);
-
-  const handleMouseEnter = () => {
-    // Clear any pending timeout to close the dropdown
-    if (hoverTimeout) {
-      clearTimeout(hoverTimeout);
-      setHoverTimeout(null);
-    }
-    setIsPageOpen(true);
-  };
-
-  const handleMouseLeave = () => {
-    // Set a timeout to close the dropdown after a small delay
-    const timeout = setTimeout(() => {
-      setIsPageOpen(false);
-    }, 200); // Delay in milliseconds
-    setHoverTimeout(timeout);
-  };
 
   const toggleCategoryDropdown = (event) => {
     event.stopPropagation();
@@ -68,11 +48,6 @@ const Navbar = ({ activeLink: initialActiveLink }) => {
     setIsPageOpen(false);
   };
 
-  const togglePagesDropdown = (event) => {
-    event.stopPropagation();
-    setIsPageOpen((prev) => !prev);
-    setIsCategoryOpen(false);
-  };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -81,12 +56,6 @@ const Navbar = ({ activeLink: initialActiveLink }) => {
         !categoryDropdownRef.current.contains(event.target)
       ) {
         setIsCategoryOpen(false);
-      }
-      if (
-        pagesDropdownRef.current &&
-        !pagesDropdownRef.current.contains(event.target)
-      ) {
-        setIsPageOpen(false);
       }
     };
 
@@ -145,108 +114,52 @@ const Navbar = ({ activeLink: initialActiveLink }) => {
         {/* Navigation Links */}
         <div className="hidden lg:block relative">
           <ul className="flex gap-5 min-w-[48vw] justify-between truncate font-bold cursor-pointer">
-            <li className="hover:text-orange-600 ease duration-200">
-              <Link to="/deals" onClick={() => handleLinkClick("deals")}>
-                <span
-                  className={`${
-                    activeLink === "deals" ? "text-orange-600" : ""
-                  } flex items-center gap-1 `}
-                >
-                  <FaFire className="" />
-                  <span className="">Deals</span>
-                </span>
-              </Link>
-            </li>
-            <li className="hover:text-primary ease duration-200">
-              <Link to="/" onClick={() => handleLinkClick("home")}>
-                <span
-                  className={`${activeLink === "home" ? "text-primary" : ""} `}
-                >
-                  Home
-                </span>
-              </Link>
-            </li>
-            <li className="hover:text-primary ease duration-200">
-              <Link to="/about" onClick={() => handleLinkClick("about")}>
-                <span
-                  className={`${activeLink === "about" ? "text-primary" : ""} `}
-                >
-                  About
-                </span>
-              </Link>
-            </li>
-            <li className="hover:text-primary ease duration-200">
-              <Link to="/shop" onClick={() => handleLinkClick("shop")}>
-                <span
-                  className={`${activeLink === "shop" ? "text-primary" : ""} `}
-                >
-                  Shop
-                </span>
-              </Link>
-            </li>
-            <li className="hover:text-primary ease duration-200">
-              <Link to="/" onClick={() => handleLinkClick("mega menu")}>
-                <span
-                  className={`${
-                    activeLink === "mega menu" ? "text-primary" : ""
-                  }`}
-                >
-                  Mega Menu
-                </span>
-              </Link>
-            </li>
-            <li className="hover:text-primary ease duration-200">
-              <Link to="/blog" onClick={() => handleLinkClick("blog")}>
-                <span
-                  className={`${activeLink === "blog" ? "text-primary" : ""} `}
-                >
-                  Blog
-                </span>
-              </Link>
-            </li>
+            <NavItem
+              to="/deals"
+              label="Deals"
+              icon={FaFire}
+              activeLink={activeLink}
+              onClick={handleLinkClick}
+            />
+            <NavItem
+              to="/"
+              label="Home"
+              activeLink={activeLink}
+              onClick={handleLinkClick}
+            />
+            <NavItem
+              to="/about"
+              label="About"
+              activeLink={activeLink}
+              onClick={handleLinkClick}
+            />
+            <NavItem
+              to="/shop"
+              label="Shop"
+              activeLink={activeLink}
+              onClick={handleLinkClick}
+            />
+            <NavItem
+              to="/"
+              label="Mega Menu"
+              activeLink={activeLink}
+              onClick={handleLinkClick}
+            />
+            <NavItem
+              to="/blog"
+              label="Blog"
+              activeLink={activeLink}
+              onClick={handleLinkClick}
+            />
 
-            {/* Second Dropdown */}
-            <li
-              ref={pagesDropdownRef}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-              className="cursor-pointer hover:text-primary ease duration-200"
-            >
-              <div className="flex gap-1 items-center cursor-pointer">
-                <span>Pages</span>
-                <DropBtn
-                  styles={`w-3 h-3 transition-transform ${
-                    isPageOpen ? "rotate-180" : ""
-                  }`}
-                />
-              </div>
-              {isPageOpen && (
-                <div
-                  className="min-w-[200px] px-2 py-3 absolute left-[560px] top-10 z-[1000] mt-4 bg-white rounded-md border-[1px] border-opacity-25 border-black shadow-lg"
-                >
-                  {pageList.map((item, index) => (
-                    <div
-                      key={index}
-                      className="block px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-primary hover:bg-opacity-70"
-                    >
-                      {item}
-                    </div>
-                  ))}
-                </div>
-              )}
-            </li>
+            <DropdownNavItem
+              label="Pages"
+              items={pageList}
+              activeLink={activeLink}
+              onClick={handleLinkClick}
+            />
 
-            <li className="hover:text-primary ease duration-200">
-              <Link to="/contact" onClick={() => handleLinkClick("contact")}>
-                <span
-                  className={`${
-                    activeLink === "contact" ? "text-primary" : ""
-                  } `}
-                >
-                  Contact
-                </span>
-              </Link>
-            </li>
+            <NavItem to="/contact" label="Contact" activeLink={activeLink} onClick={handleLinkClick} />
           </ul>
         </div>
 
