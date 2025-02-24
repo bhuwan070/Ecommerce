@@ -1,26 +1,49 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 import { GrCart } from "react-icons/gr";
 import { FaRegUser } from "react-icons/fa";
 import logo from "../../../assets/logo.svg";
+import DropBtn from "../DropBtn";
 
-
-const options = ['All Categories', 'Milks and Dairies', 'Fruits and Nuts', 'Vegatables', 'Cereals', 'Meat and Seafood']
+const options = [
+  "All Categories",
+  "Milks and Dairies",
+  "Fruits and Nuts",
+  "Vegatables",
+  "Cereals",
+  "Meat and Seafood",
+];
 
 const SearchNav = () => {
-
   const [isOpen, setIsOpen] = useState(false); // Track dropdown open state
-  const [selectedOption, SetSelectedOption] = useState("All Categories")
+  const [selectedOption, SetSelectedOption] = useState("All Categories");
+  const dropdownRef = useRef(null);
 
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen); // Toggle dropdown visibility
+  const toggleDropdown = (event) => {
+    event.stopPropagation(); // Prevent event bubbling to document listener
+    setIsOpen((prev) => !prev);
   };
 
-  const onOptionClicked = (value) => {
+  const onOptionClicked = (value, event) => {
+    event.stopPropagation(); // Prevent the event from bubbling up
     SetSelectedOption(value);
-    setIsOpen(false);
-  }
+    setIsOpen(false); // Close the dropdown
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <>
@@ -34,40 +57,28 @@ const SearchNav = () => {
               action="#"
               className="relative min-w-[40vw] flex items-center border-2 border-opacity-50 border-primary rounded gap-3 px-4 py-3"
             >
-              <div className="w-[25%] cursor-pointer" onClick={toggleDropdown}>
+              <div
+                ref={dropdownRef}
+                className="w-[25%] cursor-pointer"
+                onClick={toggleDropdown}
+              >
                 <div className="flex items-center justify-around">
                   <span className="text-[15px] font-semibold truncate">
                     {selectedOption}
                   </span>
-                  <button
-                    className="focus:outline-none"
-                    onClick={toggleDropdown}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 20 20"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className={`w-3 h-3 transition-transform ${
-                        isOpen ? "rotate-180" : ""
-                      }`}
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-                      />
-                    </svg>
-                  </button>
+                  <DropBtn
+                    styles={`w-3 h-3 transition-transform ${
+                      isOpen ? "rotate-180" : ""
+                    }`}
+                  />
                 </div>
                 {isOpen && (
-                  <div className="min-w-[200px] absolute left-0 z-10 mt-4 bg-white shadow-lg">
+                  <div className="min-w-[200px] absolute left-0 z-[1000] mt-4 bg-white shadow-lg">
                     {options.map((item, index) => (
                       <div
-                        onClick={() => onOptionClicked(item)}
+                        onClick={(event) => onOptionClicked(item, event)} // Pass the event here
                         key={index}
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-200"
+                        className="block px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-primary hover:bg-opacity-70"
                       >
                         {item}
                       </div>

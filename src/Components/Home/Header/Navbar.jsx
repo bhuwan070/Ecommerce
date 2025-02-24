@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect, useRef } from "react";
+import NavItem from "./NavItem";
+import DropdownNavItem from "./PageDropdown";
 import { FaFire } from "react-icons/fa6";
 import { CiGrid41 } from "react-icons/ci";
 import Headphone from "../../../assets/icons/icon-headphone.svg";
@@ -9,6 +9,7 @@ import img3 from "../../../assets/category/category-3.svg";
 import img4 from "../../../assets/category/category-4.svg";
 import img5 from "../../../assets/category/category-5.svg";
 import img1 from "../../../assets/category/category-1.svg";
+import DropBtn from "../DropBtn";
 
 const options = [
   {
@@ -33,12 +34,39 @@ const options = [
   },
 ];
 
+const pageList = ["About us", "Contact", "Shop", "Blog", "Login", "Register"];
+
 const Navbar = ({ activeLink: initialActiveLink }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [activeLink, setActiveLink] = useState(initialActiveLink || "home");
 
+  const categoryDropdownRef = useRef(null);
+
+  const toggleCategoryDropdown = (event) => {
+    event.stopPropagation();
+    setIsCategoryOpen((prev) => !prev);
+    setIsPageOpen(false);
+  };
+
+
   useEffect(() => {
-    // Update the state if the `initialActiveLink` changes dynamically
+    const handleClickOutside = (event) => {
+      if (
+        categoryDropdownRef.current &&
+        !categoryDropdownRef.current.contains(event.target)
+      ) {
+        setIsCategoryOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  useEffect(() => {
     if (initialActiveLink) {
       setActiveLink(initialActiveLink);
     }
@@ -50,39 +78,23 @@ const Navbar = ({ activeLink: initialActiveLink }) => {
     }
   };
 
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen); // Toggle dropdown visibility
-  };
-
   return (
-    <nav className="border-y border-gray-400 border-opacity-30 my-4 py-4 px-4">
+    <nav className="sticky top-0 z-50 bg-white border-y border-gray-400 border-opacity-30 my-4 py-3 px-4">
       <div className="flex justify-between items-center">
+        {/* First Dropdown */}
         <div
+          ref={categoryDropdownRef}
           className="relative flex items-center gap-1 bg-primary px-4 py-3 text-white font-semibold rounded-md hover:bg-[#209961] ease duration-500 cursor-pointer"
-          onClick={toggleDropdown}
+          onClick={toggleCategoryDropdown}
         >
           <CiGrid41 size={25} />
           <span className="truncate">Browse All Categories</span>
-          <button className="focus:outline-none" onClick={toggleDropdown}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 20 20"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className={`w-3 h-3 transition-transform ${
-                isOpen ? "rotate-180" : ""
-              }`}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-              />
-            </svg>
-          </button>
-
-          {isOpen && (
+          <DropBtn
+            styles={`w-3 h-3 transition-transform ${
+              isCategoryOpen ? "rotate-180" : ""
+            }`}
+          />
+          {isCategoryOpen && (
             <div className="grid gap-5 px-6 py-10 bg-white border border-primary border-opacity-50 rounded-lg grid-cols-2 absolute top-16 left-0 min-w-[480px] z-[1000]">
               {options.map((item, index) => (
                 <div
@@ -98,87 +110,60 @@ const Navbar = ({ activeLink: initialActiveLink }) => {
             </div>
           )}
         </div>
-        <div className="hidden lg:block">
+
+        {/* Navigation Links */}
+        <div className="hidden lg:block relative">
           <ul className="flex gap-5 min-w-[48vw] justify-between truncate font-bold cursor-pointer">
-            <li className="hover:text-orange-600 ease duration-200">
-              <Link to="/deals" onClick={() => handleLinkClick("deals")}>
-                <span
-                  className={`${activeLink === "deals" ? "text-orange-600" : ""} flex items-center gap-1 `}
-                >
-                  <FaFire className="" />
-                  <span className="">Deals</span>
-                </span>
-              </Link>
-            </li>
-            <li className="hover:text-primary ease duration-200">
-              <Link to="/" onClick={() => handleLinkClick("home")}>
-                <span
-                  className={`${activeLink === "home" ? "text-primary" : ""} `}
-                >
-                  Home
-                </span>
-              </Link>
-            </li>
-            <li className="hover:text-primary ease duration-200">
-              <Link to="/about" onClick={() => handleLinkClick("about")}>
-                <span
-                  className={`${activeLink === "about" ? "text-primary" : ""} `}
-                >
-                  About
-                </span>
-              </Link>
-            </li>
-            <li className="hover:text-primary ease duration-200">
-              <Link to="/shop" onClick={() => handleLinkClick("shop")}>
-                <span
-                  className={`${activeLink === "shop" ? "text-primary" : ""} `}
-                >
-                  Shop
-                </span>
-              </Link>
-            </li>
-            <li className="hover:text-primary ease duration-200">
-              <Link to="/" onClick={() => handleLinkClick("mega menu")}>
-                <span
-                  className={`${
-                    activeLink === "mega menu" ? "text-primary" : ""
-                  } `}
-                >
-                  Mega Menu
-                </span>
-              </Link>
-            </li>
-            <li className="hover:text-primary ease duration-200">
-              <Link to="/blog" onClick={() => handleLinkClick("blog")}>
-                <span
-                  className={`${activeLink === "blog" ? "text-primary" : ""} `}
-                >
-                  Blog
-                </span>
-              </Link>
-            </li>
-            <li className="hover:text-primary ease duration-200">
-              <Link to="/pages" onClick={() => handleLinkClick("pages")}>
-                <span
-                  className={`${activeLink === "pages" ? "text-primary" : ""} `}
-                >
-                  Pages
-                </span>
-              </Link>
-            </li>
-            <li className="hover:text-primary ease duration-200">
-              <Link to="/contact" onClick={() => handleLinkClick("contact")}>
-                <span
-                  className={`${
-                    activeLink === "contact" ? "text-primary" : ""
-                  } `}
-                >
-                  Contact
-                </span>
-              </Link>
-            </li>
+            <NavItem
+              to="/deals"
+              label="Deals"
+              icon={FaFire}
+              activeLink={activeLink}
+              onClick={handleLinkClick}
+            />
+            <NavItem
+              to="/"
+              label="Home"
+              activeLink={activeLink}
+              onClick={handleLinkClick}
+            />
+            <NavItem
+              to="/about"
+              label="About"
+              activeLink={activeLink}
+              onClick={handleLinkClick}
+            />
+            <NavItem
+              to="/shop"
+              label="Shop"
+              activeLink={activeLink}
+              onClick={handleLinkClick}
+            />
+            <NavItem
+              to="/"
+              label="Mega Menu"
+              activeLink={activeLink}
+              onClick={handleLinkClick}
+            />
+            <NavItem
+              to="/blog"
+              label="Blog"
+              activeLink={activeLink}
+              onClick={handleLinkClick}
+            />
+
+            <DropdownNavItem
+              label="Pages"
+              items={pageList}
+              activeLink={activeLink}
+              onClick={handleLinkClick}
+            />
+
+            <NavItem to="/contact" label="Contact" activeLink={activeLink} onClick={handleLinkClick} />
           </ul>
         </div>
+
+        {/* Support Section */}
         <div className="flex gap-2 items-center justify-center">
           <img src={Headphone} alt="" />
           <div>
