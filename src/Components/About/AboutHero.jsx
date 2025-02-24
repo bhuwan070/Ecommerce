@@ -1,7 +1,41 @@
 import React from "react";
 import AboutHeroimg from "../../assets/Banner/about-1.png";
+import Slider from "react-slick";
+import image1 from "../../assets/about/about-2.png";
+import image2 from "../../assets/about/about-3.png";
+import image3 from "../../assets/about/about-4.png";
+
+const cardData = [
+  {
+    id: 1,
+    imag: image1,
+  },
+  {
+    id: 2,
+    imag: image2,
+  },
+  {
+    id: 3,
+    imag: image3,
+  },
+  {
+    id: 4,
+    imag: image1,
+  },
+  {
+    id: 5,
+    imag: image2,
+  },
+];
 
 const AboutHero = () => {
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 3,
+  };
   return (
     <section>
       <div className="h-[100vh] w-full grid grid-cols-1 md:grid-cols-2">
@@ -34,6 +68,11 @@ const AboutHero = () => {
             consequat. Duis aute irure dolor in reprehenderit in voluptate id
             est laborum.
           </p>
+          <div className="center slider py-10 w-[80%]">
+            <Slider {...settings}>
+              <div></div>
+            </Slider>
+          </div>
         </div>
       </div>
     </section>
