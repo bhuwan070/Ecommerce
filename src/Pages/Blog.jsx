@@ -9,7 +9,7 @@ const Blog = () => {
     <>
       <SearchNav />
       <Navbar />
-      <PageContainer />
+      <PageContainer HeadingText="Blog & News"/>
     </>
   );
 };
