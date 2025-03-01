@@ -1,7 +1,86 @@
 import React from "react";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import AboutHeroimg from "../../assets/Banner/about-1.png";
+import Slider from "react-slick";
+import image1 from "../../assets/about/about-2.png";
+import image2 from "../../assets/about/about-3.png";
+import image3 from "../../assets/about/about-4.png";
+
+const cardData = [
+  {
+    id: 1,
+    imag: image1,
+  },
+  {
+    id: 2,
+    imag: image2,
+  },
+  {
+    id: 3,
+    imag: image3,
+  },
+  {
+    id: 4,
+    imag: image1,
+  },
+  {
+    id: 5,
+    imag: image2,
+  },
+];
+
+const NextArrow = ({ onClick }) => (
+  <div
+    className="absolute top-1/2 right-[-30px] transform -translate-y-1/2 bg-gray-200 p-3 rounded-full cursor-pointer hover:bg-green-600 transition"
+    onClick={onClick}
+  >
+    <FaArrowRight className="text-green-500 hover:text-white text-xl" />
+  </div>
+);
+
+const PrevArrow = ({ onClick }) => (
+  <div
+    className="absolute top-1/2 left-[-30px] z-20 transform -translate-y-1/2 bg-gray-200 p-3 rounded-full cursor-pointer  hover:bg-green-600 transition"
+    onClick={onClick}
+  >
+    <FaArrowLeft className="text-green-500 hover:text-white text-xl" />
+  </div>
+);
 
 const AboutHero = () => {
+  const settings = {
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 1000,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
+    responsive: [
+      {
+        breakpoint: 1024, // For tablets
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 768, // For smaller tablets & large phones
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 480, // For small mobile devices
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
   return (
     <section>
       <div className="h-[100vh] w-full grid grid-cols-1 md:grid-cols-2">
@@ -34,6 +113,17 @@ const AboutHero = () => {
             consequat. Duis aute irure dolor in reprehenderit in voluptate id
             est laborum.
           </p>
+          <div className="center slider py-10 w-[80%]">
+            <Slider {...settings}>
+              {cardData.map((item) => (
+                <div key={item.id}>
+                  <div className="px-2">
+                    <img src={item.imag} alt="" />
+                  </div>
+                </div>
+              ))}
+            </Slider>
+          </div>
         </div>
       </div>
     </section>
