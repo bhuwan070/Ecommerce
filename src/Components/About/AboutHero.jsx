@@ -34,7 +34,9 @@ const AboutHero = () => {
     infinite: true,
     speed: 500,
     slidesToShow: 3,
-    slidesToScroll: 3,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 1000,
   };
   return (
     <section>
@@ -70,7 +72,13 @@ const AboutHero = () => {
           </p>
           <div className="center slider py-10 w-[80%]">
             <Slider {...settings}>
-              <div></div>
+              {cardData.map((item) => (
+                <div key={item.id}>
+                  <div className="">
+                    <img src={item.imag} alt="" />
+                  </div>
+                </div>
+              ))}
             </Slider>
           </div>
         </div>
