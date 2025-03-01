@@ -1,6 +1,7 @@
 import React from "react";
 import Category1 from "../../assets/Blog/category-1.svg";
 import { FaSearch } from "react-icons/fa";
+import BlogComponents from "./BlogComponents";
 
 const MainBlog = () => {
   return (
@@ -11,6 +12,9 @@ const MainBlog = () => {
           <h1 className="text-[40px] text-gray-700 font-bold tracking-wide">
             Recips Articles
           </h1>
+        </div>
+        <div>
+          <BlogComponents />
         </div>
       </div>
       <div className="col-span-1 px-4">
