@@ -1,4 +1,5 @@
 import React from "react";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import AboutHeroimg from "../../assets/Banner/about-1.png";
 import Slider from "react-slick";
 import image1 from "../../assets/about/about-2.png";
@@ -28,15 +29,57 @@ const cardData = [
   },
 ];
 
+const NextArrow = ({ onClick }) => (
+  <div
+    className="absolute top-1/2 right-[-30px] transform -translate-y-1/2 bg-gray-200 p-3 rounded-full cursor-pointer hover:bg-green-600 transition"
+    onClick={onClick}
+  >
+    <FaArrowRight className="text-green-500 hover:text-white text-xl" />
+  </div>
+);
+
+const PrevArrow = ({ onClick }) => (
+  <div
+    className="absolute top-1/2 left-[-30px] z-20 transform -translate-y-1/2 bg-gray-200 p-3 rounded-full cursor-pointer  hover:bg-green-600 transition"
+    onClick={onClick}
+  >
+    <FaArrowLeft className="text-green-500 hover:text-white text-xl" />
+  </div>
+);
+
 const AboutHero = () => {
   const settings = {
-    dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 1000,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
+    responsive: [
+      {
+        breakpoint: 1024, // For tablets
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 768, // For smaller tablets & large phones
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 480, // For small mobile devices
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
   return (
     <section>
@@ -74,7 +117,7 @@ const AboutHero = () => {
             <Slider {...settings}>
               {cardData.map((item) => (
                 <div key={item.id}>
-                  <div className="">
+                  <div className="px-2">
                     <img src={item.imag} alt="" />
                   </div>
                 </div>
