@@ -5,7 +5,7 @@ const OurServices = () => {
     <section>
       <div className="relative inline-block ">
         <h1 className="text-3xl font-bold text-center text-gray-700 py-5">
-          Welcome to Nest
+          Welcome to Oure site
         </h1>
         <svg
           className="absolute bottom-0 left-0 w-full h-4"
